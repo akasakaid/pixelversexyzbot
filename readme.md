@@ -9,6 +9,8 @@ Auto tap/click for pixelversexyzbot
 # Disclaimer
 *❗ I am not responsible if anything happens to your account.*
 
+### [How to install termux on Android ??](https://youtu.be/QR4iO7l3FWI)
+
 # Install
 
 1. Register the following url https://t.me/pixelversexyzbot?start=629438076

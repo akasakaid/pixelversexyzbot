@@ -49,6 +49,10 @@ def login(phone):
     session_folder = "session"
     api_id = 2040
     api_hash = "b18441a1ff607e10a989891a5462e627"
+    
+    if not os.path.exists(session_folder):
+        os.makedirs(session_folder)
+    
     if not valid_number(pp(phone)):
         log(f'{merah}phone number invalid !')
         sys.exit()
