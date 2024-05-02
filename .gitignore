@@ -1,0 +1,6 @@
+env
+session
+*.session
+*.session-journal
+*.js
+.env
