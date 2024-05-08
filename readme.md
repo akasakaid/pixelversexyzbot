@@ -6,6 +6,11 @@ Auto tap/click for pixelversexyzbot
 <img src="./image/pixelversexyzbot.png" width="500" height="500">
 </center>
 
+# Changelog
+
+ - add bot_proxy.py: this bot using a proxy, run `python bot_proxy.py` for how to use.
+ - bot.py only require telegram user id for run it. How to find user id ? [Check This](#how-to-find-a-telegram-user-id)
+
 # Disclaimer
 *❗ I am not responsible if anything happens to your account.*
 
@@ -110,8 +115,20 @@ pip install -r requirements.txt
 9. Run the program
 
 ```
-python bot.py phone_number
+python bot.py telegram_account_user_id
 ```
+
+# How to find a telegram user id
+
+### With MissRose_Bot
+
+1. start rose bot [https://t.me/MissRose_bot](https://t.me/MissRose_bot)
+2. send /start after that send /id and bot will reply you telegram user id
+
+### With Emilia Bot
+
+1. start emilia bot [https://t.me/EmiliaHikariBot](https://t.me/EmiliaHikariBot)
+2. send /start after that send /id and bot will reply you telegram user id
 
 # Support
 

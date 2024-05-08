@@ -43,12 +43,16 @@ def countdown(t):
     print('                          ',flush=True,end='\r')
 
 
-def bot(user_id):
+def bot(user_id,proxy):
     try:
         auto_upgrade = (True if os.getenv('auto_upgrade') == 'true' else False)
         sleep = os.getenv('sleep')
         min_energy = os.getenv('min_energy')
         interval = os.getenv('interval')
+        proxy = {
+            "http": proxy,
+            "https": proxy
+        }
 
         rawr = 'adwawdasfajfklasjglrejnoierjboivrevioreboidwa'
         secret = hmac.new(rawr.encode('utf-8'),str(user_id).encode('utf-8'),hashlib.sha256).hexdigest()
@@ -132,15 +136,21 @@ def main():
     if len(arg) < 2:
         print(f"""How to use :
               
-python {arg[0]} telegram_account_user_id
+python {arg[0]} telegram_account_user_id you_proxy
 
 example:
-python {arg[0]} 6969696
+
+ip proxy
+python {arg[0]} 6969696 http://127.0.0.1:8080
+
+proxy with auth
+python {arg[0]} 696969 http://user:password@127.0.0.1:8080
               """)
         sys.exit()
     
     user_id = arg[1]
-    bot(user_id)
+    proxy = arg[2]
+    bot(user_id,proxy)
 
 if __name__ == '__main__':
     try:

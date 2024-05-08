@@ -4,3 +4,4 @@ session
 *.session-journal
 *.js
 .env
+*.json
