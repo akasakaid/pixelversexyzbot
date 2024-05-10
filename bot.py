@@ -108,13 +108,13 @@ def bot(user_id):
                     log(f'{kuning}min energy detected !')
                     log(f'{kuning}entering sleep mode !')
                     countdown(int(sleep))
-                    break
+                    continue
                 
                 countdown(int(interval))
                 continue
 
     except Exception as e:
-        print(merah + e)
+        print(merah + str(e))
         return
     
     
