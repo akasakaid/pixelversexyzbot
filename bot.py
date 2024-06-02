@@ -1,167 +1,163 @@
-import sys
 import os
+import sys
 import json
-import hashlib
-import hmac
 import time
+import hmac
+import hashlib
 import requests
-import random
-from urllib.parse import unquote
-from phonenumbers import is_valid_number as valid_number, parse as pp
-from dotenv import load_dotenv
+from datetime import datetime
 from colorama import *
+from urllib.parse import unquote,quote
 
 init(autoreset=True)
 
 merah = Fore.LIGHTRED_EX
-putih = Fore.LIGHTWHITE_EX
 hijau = Fore.LIGHTGREEN_EX
 kuning = Fore.LIGHTYELLOW_EX
 biru = Fore.LIGHTBLUE_EX
+hitam = Fore.LIGHTBLACK_EX
+reset = Style.RESET_ALL
+putih = Fore.LIGHTWHITE_EX
 
-load_dotenv()
-
-peer = "pixelversexyzbot"
-
-
-def log(message):
-    year, mon, day, hour, minute, second, a, b, c = time.localtime()
-    mon = str(mon).zfill(2)
-    hour = str(hour).zfill(2)
-    minute = str(minute).zfill(2)
-    second = str(second).zfill(2)
-    print(f"{biru}[{year}-{mon}-{day} {hour}:{minute}:{second}] {message}")
+class Data:
+    def __init__(self,init_data,userid,username,secret):
+        self.init_data = init_data
+        self.userid = userid
+        self.username = username
+        self.secret = secret
 
 
-def countdown(t):
-    while t:
-        menit, detik = divmod(t, 60)
-        jam, menit = divmod(menit, 60)
-        jam = str(jam).zfill(2)
-        menit = str(menit).zfill(2)
-        detik = str(detik).zfill(2)
-        print(f"waiting until {jam}:{menit}:{detik} ", flush=True, end="\r")
-        t -= 1
-        time.sleep(1)
-    print("                          ", flush=True, end="\r")
-
-
-def bot(user_id):
-    try:
-        auto_upgrade = True if os.getenv("auto_upgrade") == "true" else False
-        sleep = os.getenv("sleep")
-        min_energy = os.getenv("min_energy")
-        interval = os.getenv("interval")
-
-        rawr = "adwawdasfajfklasjglrejnoierjboivrevioreboidwa"
-        secret = hmac.new(
-            rawr.encode("utf-8"), str(user_id).encode("utf-8"), hashlib.sha256
-        ).hexdigest()
-        url = "https://api-clicker.pixelverse.xyz/api/users"
-
-        headers = {
-            "tg-id": str(user_id),
-            "secret": secret,
-            "Content-Type": "application/json",
+class PixelTod:
+    def __init__(self):
+        self.DEFAULT_COUNTDOWN = 5 * 60
+        self.base_headers = {
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en,en-US;q=0.9",
+            "Host": "api-clicker.pixelverse.xyz",
+            "X-Requested-With": "org.telegram.messenger",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
         }
 
-        res = requests.get(url, headers=headers)
-        click_count = res.json()["clicksCount"]
-        id = res.json()["id"]
-        pet_id = res.json()["pet"]["id"]
-        energy = res.json()["pet"]["energy"]
-        pet_level = res.json()["pet"]["level"]
-        log(f"{hijau}click count : {putih}{click_count}")
-        log(f"{hijau}energy : {putih}{energy}")
-        log(f"{hijau}pet level : {putih}{pet_level}")
-        print("~" * 40)
-        if int(energy) > int(min_energy):
-            while True:
-                try:
-                    click = random.randint(1, 10)
-                    data = {"clicksAmount": click}
-                    res = requests.post(
-                        "https://api-clicker.pixelverse.xyz/api/users",
-                        json=data,
-                        headers=headers,
-                    )
-                    open("hasil.json", "w").write(res.text)
-                    if "error" in res.text:
-                        print(merah + res.text)
-                        countdown(int(sleep))
-                        continue
+    def get_secret(self, userid):
+        rawr = "adwawdasfajfklasjglrejnoierjboivrevioreboidwa"
+        secret = hmac.new(
+            rawr.encode("utf-8"), str(userid).encode("utf-8"), hashlib.sha256
+        ).hexdigest()
+        return secret
+    
+    def data_parsing(self,data):
+        redata = {}
+        for i in unquote(data).split('&'):
+            key,value = i.split('=')
+            redata[key] = value
+        
+        return redata
+            
+    def main(self):
+        banner = f"""
+    {hijau}AUTO CLAIM PIXELTAP BY {biru}PIXELVERSE
+    
+    {putih}By : {hijau}t.me/AkasakaID
+    {hijau}Github : {putih}@AkasakaID
+        """
+        arg = sys.argv
+        if "noclear" not in arg:
+            os.system("cls" if os.name == "nt" else "clear")
+        print(banner)
+        datas = open("data.txt","r").read().splitlines()
+        self.log(f'{hijau}account detected : {len(datas)}')
+        if len(datas) <= 0:
+            self.log(f'{kuning}please fill / input your data to data.txt')
+            sys.exit()
+        print('~' * 50)
+        while True:
+            for no,data in enumerate(datas):
+                self.log(f'{hijau}account number : {putih}{no + 1}')
+                data_parse = self.data_parsing(data)
+                user = json.loads(data_parse['user'])
+                userid = str(user['id'])
+                first_name = user['first_name']
+                last_name = user['last_name']
+                username = user['username']
+                self.log(f'{hijau}login as : {putih}{first_name} {last_name}')
+                secret = self.get_secret(userid)
+                new_data = Data(data,userid,username,secret)
+                self.get_me(new_data)
+                self.get_mining_proccess(new_data)
+                print('~' * 50)
+                self.countdown(self.DEFAULT_COUNTDOWN)
 
-                    if "clicksCount" not in res.json().keys():
-                        print(merah + res.text)
-                        countdown(60)
-                        continue
+    def countdown(self, t):
+        while t:
+            menit, detik = divmod(t, 60)
+            jam, menit = divmod(menit, 60)
+            jam = str(jam).zfill(2)
+            menit = str(menit).zfill(2)
+            detik = str(detik).zfill(2)
+            print(f"{putih}waiting until {jam}:{menit}:{detik} ", flush=True, end="\r")
+            t -= 1
+            time.sleep(1)
+        print("                          ", flush=True, end="\r")
+    
+    def get_me(self,data:Data):
+        url = 'https://api-clicker.pixelverse.xyz/api/users'
+        headers = self.base_headers.copy()
+        headers['initData'] = data.init_data
+        headers['secret'] = data.secret
+        headers['tg-id'] = data.userid
+        headers['username'] = data.username
+        res = self.http(url,headers)
+        balance = res.json()['clicksCount']
+        self.log(f'{hijau}total balance : {putih}{balance}')
+        return
+        
 
-                    click_count = res.json()["clicksCount"]
-                    energy = res.json()["pet"]["energy"]
-                    pet_level = res.json()["pet"]["level"]
-                    pet_id = res.json()["pet"]["id"]
-                    level_up_price = res.json()["pet"]["levelUpPrice"]
-                    log(f"{hijau}click : {putih}{click}")
-                    log(f"{hijau}click count : {putih}{click_count}")
-                    log(f"{hijau}energy : {putih}{energy}")
-                    log(f"{hijau}pet level : {putih}{pet_level}")
-                    print("~" * 40)
-                    if auto_upgrade:
-                        if int(click_count) >= int(level_up_price):
-                            url_upgrade = f"https://api-clicker.pixelverse.xyz/api/pets/user-pets/{pet_id}/level-up"
-                            res = requests.post(url_upgrade, headers=headers)
-
-                    if int(min_energy) > int(energy):
-                        log(f"{kuning}min energy detected !")
-                        log(f"{kuning}entering sleep mode !")
-                        countdown(int(sleep))
-                        continue
-
-                    countdown(int(interval))
-                    continue
-                except (
-                    requests.exceptions.ConnectionError,
-                    requests.exceptions.ConnectTimeout,
-                    requests.exceptions.ReadTimeout,
-                ):
-                    log(f"{merah} connection error / timeout")
-                    continue
-
-    except Exception as e:
-        print(merah + str(e))
+    def get_mining_proccess(self, data:Data):
+        url = "https://api-clicker.pixelverse.xyz/api/mining/progress"
+        headers = self.base_headers.copy()
+        headers['initData'] = data.init_data
+        headers['secret'] = data.secret
+        headers['tg-id'] = data.userid
+        headers['username'] = data.username
+        res = self.http(url,headers)
+        available = res.json()['currentlyAvailable']
+        min_claim = res.json()['minAmountForClaim']
+        self.log(f'{putih}amount available : {hijau}{available}')
+        if available > min_claim:
+            url_claim = 'https://api-clicker.pixelverse.xyz/api/mining/claim'
+            res = self.http(url_claim,headers,'')
+            claim_amount = res.json()['claimedAmount']
+            self.log(f'{hijau}claim amount : {putih}{claim_amount}')
+            return
+        
+        self.log(f'{kuning}amount too small to make claim !')
         return
 
+    def log(self, message):
+        now = datetime.now().isoformat(" ").split(".")[0]
+        print(f"{hitam}[{now}]{reset} {message}")
 
-def main():
-    os.system("cls" if os.name == "nt" else "clear")
-    banner = f"""
-    {hijau}Auto click/tap PIXELVERSEXYZBOT
-
-    {putih}by t.me/AkasakaID
-    {putih}github: @AkasakaID
-    
-    """
-    print(banner)
-    arg = sys.argv
-    if len(arg) < 2:
-        print(
-            f"""How to use :
-              
-python {arg[0]} telegram_account_user_id
-
-example:
-python {arg[0]} 6969696
-              """
-        )
-        sys.exit()
-
-    user_id = arg[1]
-    bot(user_id)
-
+    def http(self,url,headers,data=None):
+        while True:
+            try:
+                if data is None:
+                    res = requests.get(url,headers=headers)
+                    return res
+                
+                if data == '':
+                    res = requests.post(url,headers=headers)
+                    return res
+                
+                res = requests.post(url,headers=headers,data=data)
+                return res
+            
+            except (requests.exceptions.ConnectionError,requests.exceptions.ConnectTimeout,requests.exceptions.ReadTimeout,requests.exceptions.Timeout):
+                self.log(f'{merah}connection error / connection timeout !')
+                continue
 
 if __name__ == "__main__":
     try:
-        main()
+        app = PixelTod()
+        app.main()
     except KeyboardInterrupt:
         sys.exit()
