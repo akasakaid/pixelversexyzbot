@@ -85,7 +85,7 @@ class PixelTod:
                 self.get_me(new_data)
                 self.get_mining_proccess(new_data)
                 print('~' * 50)
-                self.countdown(self.DEFAULT_COUNTDOWN)
+            self.countdown(self.DEFAULT_COUNTDOWN)
 
     def countdown(self, t):
         while t:
