@@ -78,7 +78,9 @@ class PixelTod:
                 userid = str(user['id'])
                 first_name = user['first_name']
                 last_name = user['last_name']
-                username = user['username']
+                username = None
+                if "username" in user.keys():
+                    username = user['username']
                 self.log(f'{hijau}login as : {putih}{first_name} {last_name}')
                 secret = self.get_secret(userid)
                 new_data = Data(data,userid,username,secret)
@@ -105,7 +107,8 @@ class PixelTod:
         headers['initData'] = data.init_data
         headers['secret'] = data.secret
         headers['tg-id'] = data.userid
-        headers['username'] = data.username
+        if data.username is not None:
+            headers['username'] = data.username
         res = self.http(url,headers)
         balance = res.json()['clicksCount']
         self.log(f'{hijau}total balance : {putih}{balance}')
@@ -118,7 +121,8 @@ class PixelTod:
         headers['initData'] = data.init_data
         headers['secret'] = data.secret
         headers['tg-id'] = data.userid
-        headers['username'] = data.username
+        if data.username is not None:
+            headers['username'] = data.username
         res = self.http(url,headers)
         available = res.json()['currentlyAvailable']
         min_claim = res.json()['minAmountForClaim']
@@ -142,13 +146,16 @@ class PixelTod:
             try:
                 if data is None:
                     res = requests.get(url,headers=headers)
+                    open('.http.log','a',encoding='utf-8').write(f'{res.text}\n')
                     return res
                 
                 if data == '':
                     res = requests.post(url,headers=headers)
+                    open('.http.log','a',encoding='utf-8').write(f'{res.text}\n')
                     return res
                 
                 res = requests.post(url,headers=headers,data=data)
+                open('.http.log','a',encoding='utf-8').write(f'{res.text}\n')
                 return res
             
             except (requests.exceptions.ConnectionError,requests.exceptions.ConnectTimeout,requests.exceptions.ReadTimeout,requests.exceptions.Timeout):
