@@ -6,6 +6,17 @@ Auto claim for pixeltap by pixelverse
 <img src="./image/image.png" width="400px" height="300px">
 </center>
 
+# Table of Contents
+- [pixelversexyzbot](#pixelversexyzbot)
+- [Table of Contents](#table-of-contents)
+- [Feature](#feature)
+- [Registration](#registration)
+- [How to Use](#how-to-use)
+- [Video Guide \& Android Guide](#video-guide--android-guide)
+- [Javascript Command to Get Telegram Data for Desktop](#javascript-command-to-get-telegram-data-for-desktop)
+- [Support](#support)
+- [Thank you \< 3](#thank-you--3)
+
 # Feature
 
 - [x] Suppport Multi Account
@@ -89,9 +100,9 @@ Start bot : [HERE](https://t.me/pixelversexyzbot?start=629438076)
    python3 bot.py
    ```
 
-# Video Guide
+# Video Guide & Android Guide
 
-SOON
+Watch the video via following link for guidance : [https://youtu.be/KTZW9A75guI](https://youtu.be/KTZW9A75guI)
 
 # Javascript Command to Get Telegram Data for Desktop
 
