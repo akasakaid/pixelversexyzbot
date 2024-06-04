@@ -29,7 +29,8 @@ class Data:
 
 class PixelTod:
     def __init__(self):
-        self.DEFAULT_COUNTDOWN = 5 * 60
+        self.DEFAULT_COUNTDOWN = 5 * 60 # 5 is minute if you want to change please change it. example : if you want to change to 1 hour change it to 60.
+        self.INTERVAL_DELAY = 10 # interval is seconds
         self.base_headers = {
             "Accept": "application/json, text/plain, */*",
             "Accept-Language": "en,en-US;q=0.9",
@@ -81,12 +82,14 @@ class PixelTod:
                 username = None
                 if "username" in user.keys():
                     username = user['username']
+                    
                 self.log(f'{hijau}login as : {putih}{first_name} {last_name}')
                 secret = self.get_secret(userid)
                 new_data = Data(data,userid,username,secret)
                 self.get_me(new_data)
                 self.get_mining_proccess(new_data)
                 print('~' * 50)
+                self.countdown(self.INTERVAL_DELAY)
             self.countdown(self.DEFAULT_COUNTDOWN)
 
     def countdown(self, t):
@@ -109,6 +112,7 @@ class PixelTod:
         headers['tg-id'] = data.userid
         if data.username is not None:
             headers['username'] = data.username
+            
         res = self.http(url,headers)
         balance = res.json()['clicksCount']
         self.log(f'{hijau}total balance : {putih}{balance}')
@@ -123,6 +127,7 @@ class PixelTod:
         headers['tg-id'] = data.userid
         if data.username is not None:
             headers['username'] = data.username
+            
         res = self.http(url,headers)
         available = res.json()['currentlyAvailable']
         min_claim = res.json()['minAmountForClaim']
@@ -130,6 +135,10 @@ class PixelTod:
         if available > min_claim:
             url_claim = 'https://api-clicker.pixelverse.xyz/api/mining/claim'
             res = self.http(url_claim,headers,'')
+            if 'claimedAmount' not in res.json().keys():
+                self.log(f'{merah}claim failed, maybe to many request !')
+                return
+            
             claim_amount = res.json()['claimedAmount']
             self.log(f'{hijau}claim amount : {putih}{claim_amount}')
             return
