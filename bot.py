@@ -38,6 +38,7 @@ class PixelTod:
             "X-Requested-With": "org.telegram.messenger",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
         }
+    
 
     def get_secret(self, userid):
         rawr = "adwawdasfajfklasjglrejnoierjboivrevioreboidwa"
@@ -116,6 +117,27 @@ class PixelTod:
         res = self.http(url,headers)
         balance = res.json()['clicksCount']
         self.log(f'{hijau}total balance : {putih}{balance}')
+        return
+    
+    def daily_reward(self,data:Data):
+        url = 'https://api-clicker.pixelverse.xyz/api/daily-rewards'
+        headers = self.base_headers.copy()
+        headers['initData'] = data.init_data
+        headers['secret'] = data.secret
+        headers['tg-id'] = data.userid
+        if data.username is not None:
+            headers['username'] = data.username
+            
+        res = self.http(url,headers)
+        today_reward = res.json()['todaysRewardAvailable']
+        if today_reward:
+            url_claim = 'https://api-clicker.pixelverse.xyz/api/daily-rewards/claim'
+            res = self.http(url_claim,headers)
+            amount = res.json()['amount']
+            self.log(f'{hijau}success claim today reward : {putih}{amount}')
+            return
+        
+        self.log(f'{kuning}already claim today reward !')
         return
         
 
