@@ -133,7 +133,7 @@ class PixelTod:
         today_reward = res.json()['todaysRewardAvailable']
         if today_reward:
             url_claim = 'https://api-clicker.pixelverse.xyz/api/daily-rewards/claim'
-            res = self.http(url_claim,headers)
+            res = self.http(url_claim,headers,'')
             amount = res.json()['amount']
             self.log(f'{hijau}success claim today reward : {putih}{amount}')
             return
