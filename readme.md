@@ -15,10 +15,13 @@ Auto claim for pixeltap by pixelverse
 - [Video Guide \& Android Guide](#video-guide--android-guide)
 - [Javascript Command to Get Telegram Data for Desktop](#javascript-command-to-get-telegram-data-for-desktop)
 - [Support](#support)
+- [Discussion](#discussion)
 - [Thank you \< 3](#thank-you--3)
 
 # Feature
 
+- [x] Auto Claim Point
+- [x] Auto Claim Daily Reward
 - [x] Suppport Multi Account
 - [x] Input data manually (no login require)
 
@@ -116,5 +119,9 @@ To support me you can buy me a coffee via website in below
 
 - https://trakteer.id/fawwazthoerif/tip
 - https://sociabuzz.com/fawwazthoerif/tribe
+
+# Discussion
+
+If you have any question or something you can ask in here : [@sdsproject_chat](https://t.me/sdsproject_chat)
 
 # Thank you < 3
