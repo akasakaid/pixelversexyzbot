@@ -45,12 +45,12 @@ Start bot : [HERE](https://t.me/pixelversexyzbot?start=629438076)
 
 2. Clone this repository
    ```shell
-   git clone https://github.com/akasakaid/gameetod.git
+   git clone https://github.com/akasakaid/pixelversexyzbot.git
    ```
 
-3. goto gameetod directory
+3. goto pixelversexyzbot directory
    ```
-   cd gameetod
+   cd pixelversexyzbot
    ```
 
 4. install the require library
@@ -80,13 +80,13 @@ Start bot : [HERE](https://t.me/pixelversexyzbot?start=629438076)
 2. Clone this repository
    
    ```shell
-   git clone https://github.com/akasakaid/gameetod.git
+   git clone https://github.com/akasakaid/pixelversexyzbot.git
    ```
 
-3. goto gameetod directory
+3. goto pixelversexyzbot directory
 
    ```shell
-   cd gameetod
+   cd pixelversexyzbot
    ```
 
 4. Install the require library
@@ -117,12 +117,12 @@ Start bot : [HERE](https://t.me/pixelversexyzbot?start=629438076)
 
 2. Clone this repository
    ```shell
-   git clone https://github.com/akasakaid/gameetod.git
+   git clone https://github.com/akasakaid/pixelversexyzbot.git
    ```
 
-3. goto gameetod directory
+3. goto pixelversexyzbot directory
    ```
-   cd gameetod
+   cd pixelversexyzbot
    ```
 
 4. install the require library
