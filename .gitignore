@@ -11,3 +11,4 @@ session
 *.txt
 !data.txt
 !combo.txt
+!config.json
