@@ -1,0 +1,8 @@
+{
+  "countdown": 25200,
+  "interval": 10,
+  "auto_buy_pet": true,
+  "max_pet": 5,
+  "auto_upgrade_pet": true,
+  "max_level_upgrade_pet": 50
+}
