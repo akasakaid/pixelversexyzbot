@@ -3,7 +3,7 @@
 Auto claim for pixeltap by pixelverse
 
 <center>
-<img src="./image/image.png" width="400px" height="300px">
+<img src="./images/image.png" width="400px" height="300px">
 </center>
 
 # Table of Contents
@@ -12,6 +12,8 @@ Auto claim for pixeltap by pixelverse
 - [Feature](#feature)
 - [Registration](#registration)
 - [How to Use](#how-to-use)
+  - [Setup Daily Combo](#setup-daily-combo)
+  - [Config.json Explanation](#configjson-explanation)
   - [Windows](#windows)
   - [Linux](#linux)
   - [Termux](#termux)
@@ -27,6 +29,8 @@ Auto claim for pixeltap by pixelverse
 - [x] Auto Claim Point
 - [x] Auto Claim Daily Reward
 - [x] Suppport Multi Account
+- [x] Apply Daily Combo with User Input
+- [x] Auto Upgrade Pet
 - [x] Input data manually (no login require)
 
 # Registration
@@ -34,6 +38,34 @@ Auto claim for pixeltap by pixelverse
 Start bot : [HERE](https://t.me/pixelversexyzbot?start=629438076)
 
 # How to Use
+
+## Setup Daily Combo
+
+Here's how to use the daily combo function.
+for example daily combo today is like image below
+
+<img src="./images/dialy_combo_today.jpg" width="300" height="300">
+
+Okay, then look at the image below. The image below is the sequence of images to fill in the `combo.txt` file
+
+<img src="./images/squence.jpg" width="300" height="700">
+
+So, fill the `combo.txt` with the number and separate with comma (,) for example today is number for the combo is:
+
+```
+1,11,14,15
+```
+
+## Config.json Explanation
+
+| Key                   | Value             | Description                                                                                                                      |
+| --------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| countdown             | integer (second)  | sleep time before next claim                                                                                                     |
+| interval              | integer (second)  | sleep time every account                                                                                                         |
+| auto_buy_pet          | bool (true/false) | auto buy pet function if buy pet is available                                                                                    |
+| max_pet               | integer           | max number of pets owned if the number of pets is more than or equal to max_pet then the auto_buy_pet function will be disabled. |
+| auto_upgrade_pet      | bool (true/false) | auto upgrade pet function                                                                                                        |
+| max_level_upgrade_pet | integer           | max level of pet if level of pet is over than in config.json auto_upgrade_pet function will disable / off                        |
 
 ## Windows 
 
