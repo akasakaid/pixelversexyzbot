@@ -5,3 +5,9 @@ session
 *.js
 .env
 *.json
+*.log
+*.py
+!bot.py
+*.txt
+!data.txt
+!combo.txt
