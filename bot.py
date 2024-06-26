@@ -198,12 +198,11 @@ class PixelTapTod:
                 user_pet_name = pet['name']
                 user_pet_id = pet['userPet']['id']
                 user_pet_level = pet['userPet']['level']
-                user_pet_is_max = pet['userPet']['isMaxLevel']
                 user_level_up_price = pet['userPet']['levelUpPrice']
                 self.log(f'{hijau}pet id : {putih}{user_pet_id}')
                 self.log(f'{hijau}pet name : {putih}{user_pet_name}')
                 self.log(f'{hijau}pet level : {putih}{user_pet_level}')
-                if self.AUTO_UPGRADE_PET and user_pet_is_max is False:
+                if self.AUTO_UPGRADE_PET:
                     if user_pet_level > self.MAX_LEVEL_UPGRADE_PET:
                         self.log(
                             f'{kuning}limit max level pet reacted from config !')
