@@ -152,6 +152,9 @@ class PixelTapTod:
 
         today = datetime.now(timezone.utc).isoformat().split("T")[0]
         list_combo = open("combo.txt").read().strip().split(',')
+        if len(list_combo) <= 0:
+            self.log(f'{kuning}skip apply daily combo, because combo.txt is empty !')
+            return
         list_option = res.json().get('availableOptions')
         if list_option is None:
             self.log(f'{merah}failed fetch combo option !')
